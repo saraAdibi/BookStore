@@ -1,0 +1,75 @@
+{% extends "parent/main.html" %}
+{% block title %} Document {{ super }} {% endblock %}
+{% block body %}
+    {% load static %}
+
+
+<body style="text-align: center; color: #070606;">
+        <!-- Start All Title Box -->
+    <div class="all-title-box" style="background-image: url({% static 'img/all-bg-title.jpg' %})" >
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Product editing</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                        <li class="breadcrumb-item"><a href="#">Product</a></li>
+                        <li class="breadcrumb-item active">Product editing</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End All Title Box -->
+        <br>
+    {% for i in list %}
+    <form action="{% url 'edit_product' i.4 %}" method="post">
+        {% csrf_token %}
+        <p>
+            <label for="name_product">
+                <input style="text-align: center;" id="name_product" placeholder="نام محصول" name="name_product" value="{{ i.0 }}">
+            </label>
+        </p>
+        <p>
+            <label for="count_product">
+                <input style="text-align: center;" id="count_product" placeholder="تعداد محصول" name="count_product" value="{{ i.1 }}">
+            </label>
+        </p>
+        <p>
+            <label for="price_product">
+                <input style="text-align: center;" id="price_product" placeholder="قیمت محصول" name="price_product" value="{{ i.2 }}">
+            </label>
+        </p>
+        <p>
+            <label for="category_product">
+                <input style="text-align: center;" id="category_product" placeholder="دسته یندی محصول" name="category_product" value="{{ i.3 }}">
+            </label>
+        </p>
+        <p>
+            <input type="submit" value="ویرایش محصول">
+        </p>
+    </form>
+    <hr>
+    <ul style="font-size: x-large;">
+
+        <li>
+            <span>نام محصول :</span>
+            {% if i.1 %}
+                <span style="color: red;"> {{ i.0 }} ></span>
+            {% else %}
+                <span style="color: rgb(0, 255, 234);"> {{ i.0 }} </span>
+            {% endif %}
+            {% if i.1 %}<span> تعداد :</span><span>{{ i.1 }}</span> |{% endif %}
+            <span> قیمت :</span><span>{{ i.2 }}</span> |
+            <span> نام دسته بندی :</span><span>{{ i.3 }}</span>
+            <span> مدیریت :</span>
+            {% if i.1 %}<span><a href="{% url 'edit_product' i.4 %}" style="color: #070606;">ویرایش</a> | <a href="{% url 'delete_product' i.4 %}" style="color: #070606;">حذف</a></span> {% else %} <span style="color:gray;font-style: italic;">مقداری برای محصول وجود ندارد</span> {% endif %}
+
+        </li>
+    </ul>
+    {% endfor %}
+
+    <br>
+</body>
+</html>
+{% endblock %}

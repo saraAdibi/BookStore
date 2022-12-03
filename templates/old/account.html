@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store | فروشگاه</title>
+</head>
+<style>
+
+  </style>
+<body style=" text-align: center; background-repeat: no-repeat; background-size: cover;">
+    <h1 style="color: white;"><big>خوش امدید</big></h1>
+    <img src="https://b2n.ir/s43715" alt="welcome page" width="1000" height="400" >
+    <form action="{%url 'account'%}" method="POST">{%csrf_token%}
+        
+        <label for="register">
+           <a href="{% url 'register' %}"> <button type="button" style="color: blueviolet;  font-size: xx-large; border-radius: 15px;"> ثبت نام</button> </a>
+        </label>
+        <label for="login">
+           <a href="{% url 'login' %}"> <button type="button" style="color: blueviolet;  font-size: xx-large; border-radius: 15px;" >ورود </button> </a>  
+        </label>
+    </form>
+    
+</body>
+</html>

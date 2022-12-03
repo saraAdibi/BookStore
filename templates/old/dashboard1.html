@@ -1,0 +1,10 @@
+{% extends "parent/main.html" %}
+{% block body %}
+<body style=" background-repeat: no-repeat; background-size: cover;">
+    <ul>
+    <li style="font-size: 500%; background-color: blanchedalmond; text-align: center;"><a href="{% url 'logout'%}">logout</a></li>
+    <li style="font-size: 500%; background-color: blanchedalmond; text-align: center;"><a href="{% url 'product' %}" title=""> products</a></li>
+    <li style="font-size: 500%; background-color: blanchedalmond; text-align: center;"><a href="{% url 'cart' %}">cart</a></li>
+</ul>
+</body>
+{% endblock %}

@@ -1,0 +1,149 @@
+{% extends "parent/main.html" %}
+{% block title %} Basket {{ super }} {% endblock %}
+{% block body %}
+{% load static %}
+
+
+<!-- Start All Title Box -->
+    <div class="all-title-box" style="background-image: url({% static 'img/backBook.jpg' %})" >
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Basket</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'product' %}">Shop</a></li>
+                        <li class="breadcrumb-item active">Basket</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- End All Title Box -->
+
+
+<!-- Start Cart  -->
+    <div class="cart-box-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-main table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Product Name</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th>Remove/Add</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            {% for p in products %}
+
+                                <tr>
+                                    <td class="thumbnail-img">
+                                        <a href="#">
+<!--									<img class="img-fluid" src="{% static 'img/black.jpg'  %}" alt="" />-->
+
+								</a>
+                                    </td>
+                                    <td class="name-pr">
+                                        <a href="#">
+                                            {{ p.0 }}
+								</a>
+                                    </td>
+                                    <td class="price-pr">
+                                        <p>{{p.5}}</p>
+                                    </td>
+                                    <td>{{ p.2 }}</td>
+                                    <td class="total-pr">
+                                        <p>{{p.3}}</p>
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'delete_cart' p.4 %}" style="font-size: x-large;color: black">-</a> /
+                                        {% if p.6 > 0 %}
+                                            <a href="{% url 'addCart' p.4 %}" style="font-size: x-large;color: black">+</a>
+                                            {% else %}
+                                            <a style="color: gray;font-size: x-large">+</a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    {% if error %}
+                        <p style="color: tomato;text-align: center">{{ error }}</p>
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+
+
+
+<!---->
+            <div class="row my-5">
+                <div class="col-lg-6 col-sm-6">
+                    <div class="coupon-box">
+                        <div class="input-group input-group-sm">
+                            <input id="coupon_val" class="form-control" placeholder="Enter your coupon code" aria-label="Coupon code" type="text">
+                            <div class="input-group-append">
+                                <button id="coupon_btn" class="btn btn-theme" type="button">Apply Coupon</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!---->
+
+            <div class="row my-5">
+                <div class="col-lg-8 col-sm-12"></div>
+                <div class="col-lg-4 col-sm-12">
+                    <div class="order-box">
+                        <hr>
+                        <div class="d-flex gr-total">
+                            <h5>Grand Total:</h5>
+                            <div id="grand" class="ml-auto h5">{% if error %} 0 {% endif %} {{Grand_total}} T </div>
+                        </div>
+                        <hr> </div>
+                </div>
+                <div class="col-12 d-flex shopping-box"><a href="{% url 'factor' %}" class="ml-auto btn hvr-hover">Checkout</a> </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- End Cart -->
+{% endblock %}
+
+{% block js %}
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+
+$('#coupon_btn').click(function(){
+$.post("{% url 'check_coupon' %}", {"code": $('#coupon_val').val(),"csrfmiddlewaretoken":getCookie('csrftoken')}, (data,status)=>{
+
+console.log(data.price);
+$("#grand").html(data.price + " T");
+});
+});
+
+{% endblock %}

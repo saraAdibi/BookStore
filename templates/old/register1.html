@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | ثبت نام</title>
+</head>
+<body style=" text-align: center; background-repeat: no-repeat; background-size: cover;">
+    <h1 style="color: white;">صفحه ثبت نام کاربری</h1>
+    <form action="{% url 'register'%}" method="POST">{%csrf_token%}
+        <label for="name and last name">
+            <input type="text" name="first_name" placeholder="First name" style="font-size: xx-large; width: 200px; ; border-radius: 15px;" value="{{first_name}}"/>
+            <input type="text" name="last_name" placeholder="Last name" style="font-size: xx-large;width: 200px; border-radius: 15px;" value="{{last_name}}"/>
+
+        </label>
+        <label for="username"><p><b style=" color: rgb(255, 255, 255); font-size: xx-large;"> <br></b> 
+            <input type="text" name="username" placeholder="Username" style="font-size: xx-large; border-radius: 15px;" value="{{username}}"/> <br>
+
+        </label>
+
+        <label for="password" style=" color: rgb(255, 255, 255); font-size: xx-large;"> <br>
+            <input type="password" name="password" placeholder="Password" style="font-size: xx-large; border-radius: 15px;" value="{{password}}"/> <br>
+           <br>
+            <input type="password" name="confirm_password" placeholder="Confirm Password" style="font-size: xx-large; border-radius: 15px;" value="{{confirm_password}}"/> <br>
+
+        </label>
+
+        <label for="email" style=" color: rgb(255, 255, 255); font-size: xx-large;"> <br>
+            <input type="email" name="email" placeholder="Email" style="font-size: xx-large; border-radius: 15px;" value="{{email}}"/> <br>
+
+        </label>
+        <button type="submit" style="font-size: xx-large; border-radius: 15px;">ثبت نام</button>
+    </form>
+    {% if error %}
+            <h1 style="color: white; background-color: red;">{{ error }}</h1>
+        {% endif %}
+    
+</body>
+</html>

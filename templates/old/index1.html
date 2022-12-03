@@ -1,0 +1,48 @@
+{% extends "parent/main.html" %}
+{% block title %} Factor {{ super }} {% endblock %}
+{% block body %}
+    {% load static %}
+
+<!--<body style="text-align: center;">
+         Start All Title Box -->
+    <div class="all-title-box" style="background-image: url({% static 'img/all-bg-title.jpg' %})" >
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Factor</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                        <li class="breadcrumb-item active">Factor</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End All Title Box -->
+        {% if error1 %}
+    <hr>
+    <p>{{ error1 }}</p>
+    {% endif %}
+    <body style="text-align: center">
+    <table style="margin-left: auto; margin-top: auto; margin-right: auto; margin-bottom: auto;">
+        <tr>
+            <th>نام محصول </th>
+            <th>تعداد محصول</th>
+            <th>قیمت</th>
+        </tr>
+        {% for p in fp %}
+        <tr>
+            <td>{{ p.0 }}</td>
+            <td>{{ p.1 }}</td>
+            <td>{{ p.2 }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td>نام کاربری خریدار : {{ f.0 }} </td>
+        </tr>
+    </table>
+    <p> <h2>قیمت نهایی :‌ {{ f.4 }}</h2></p>
+    <p><a href="{% url 'cart' %}"><h2>بازگشت به سبد خرید</h2></a></p>
+    <p><button>پرداخت</button></p>
+    </body>
+{% endblock %}

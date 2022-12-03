@@ -1,0 +1,68 @@
+{% extends "parent/main.html" %}
+{% include 'partial/nav.html' %}
+
+{% block title %} Account {{ super }} {% endblock %}
+{% block body %}
+{% load static %}
+        <!-- Start All Title Box -->
+    <div class="all-title-box" style="background-image: url({% static 'img/backBook.jpg' %})" >
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Login &amp; Registration</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'product' %}">Shop</a></li>
+                        <li class="breadcrumb-item active">Login &amp; Registration</li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End All Title Box -->
+    <body style="text-align: center">
+    {% if error %}
+    <hr>
+    <p>{{ error }}</p>
+    {% endif %}
+
+    <form action="{%url 'account'%}" method="POST">{%csrf_token%}
+    <div class="my-account-box-main">
+        <div class="container">
+            <div class="my-account-page">
+                <div class="row">
+                    <div class="col-lg-2 col-md-12">
+
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="account-box">
+                            <div class="service-box">
+                                <div class="service-icon">
+                                    <a href="{% url 'login' %}"><i class="fa fa-lock-open"></i> </a>
+                                </div>
+                                <div class="service-desc">
+                                    <h4>Login</h4>
+                                    <p>Login into an existing account</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="account-box">
+                            <div class="service-box">
+                                <div class="service-icon">
+                                    <a href="{% url 'register' %}"> <i class="fa fa-clipboard-list"></i> </a>
+                                </div>
+                                <div class="service-desc">
+                                    <h4>Register</h4>
+                                    <p>Join us!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form></body>
+{% endblock %}

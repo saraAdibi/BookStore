@@ -1,0 +1,102 @@
+{% load static %}
+<!-- Start Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-default bootsnav ">
+            <div class="container">
+                <!-- Start Header Navigation -->
+                <div class="navbar-header">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa fa-bars"></i>
+                </button>
+                    <a class="navbar-brand" href="{%url 'account'%}"><img src={% static 'img/logo2.png' %} class="logo" alt=""></a>
+                </div>
+                <!-- End Header Navigation -->
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
+                        <li class="nav-item active"><a class="nav-link" href="{%url 'account'%}">Account</a></li>
+                        <!--                        <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>-->
+                        <li class="nav-item"><a class="nav-link" href="{% url 'product' %}">SHOP</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'listFactors' %}">Factors</a></li>
+
+                    </ul>
+<!--                        <li class="dropdown">-->
+<!--                            <a href="#" class="nav-link dropdown-toggle " data-toggle="dropdown">My Account</a>-->
+<!--                            <ul class="dropdown-menu">-->
+<!--                                <li><a href="{% url 'cart' %}">Basket</a></li>-->
+<!--                                <li><a href="{%url 'product'%}">Shop</a></li>-->
+<!--                                <li><a href="{% url 'listFactors' %}">Factors</a></li>-->
+<!--&lt;!&ndash;                            <li><a href="shop-detail.html">Shop Detail</a></li>&ndash;&gt;-->
+<!--                            </ul>-->
+<!--                        </li>-->
+<!--                        <li class="nav-item"><a class="nav-link" href="#">Our Service</a></li>-->
+<!--                        <li class="nav-item"><a class="nav-link" href="#">Contact Us</a></li>-->
+<!--******************************************************-->
+                 <a type="button" role="button" href="{% url 'cart' %}" class="btn btn-outline-secondary border-0 basket-btn">
+                    <div id="basket-qty" class="basket-qty">
+                      {% if basketqty %}
+                      {{basketqty}}
+                      {% else %}
+                      0
+                      {% endif %}
+                    </div>
+                    <div>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
+                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                      </svg>
+                    </div>
+                    <span class="fs15 fw500">Basket</span>
+                  </a>
+<!--******************************************************-->
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+
+                <!-- Start Atribute Navigation -->
+                <div class="attr-nav">
+                    <ul>
+                        <li class="search"><a href="#"><i class="fa fa-search"></i></a></li>
+<!--                        <li class="nav-item"><a href="{% url 'cart' %}">-->
+<!--                            <i class="fa fa-shopping-bag"></i>-->
+<!--                            <span class="badge"></span>-->
+<!--					</a></li>-->
+                    </ul>
+                </div>
+                <!-- End Atribute Navigation -->
+            </div>
+            <!-- Start Side Menu -->
+            <div class="side">
+
+                <a href="{% url 'cart' %}"  class="close-side"><i class="fa fa-times"></i></a>
+                <li class="cart-box">
+                    <ul class="cart-list">
+
+                        {% for p in products %}
+                            <!--<p style="text-align: right; margin-left: auto; margin-right: auto;">
+        نام محصول:{{ p.0 }} | تعداد محصول : {{ p.2 }}-->
+                            <li>
+                            <a href="#" class="photo"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTURzlbeIb-yaszjJDdiVNUKWO5iLdWp9VWpQ&usqp=CAU" class="cart-thumb" alt="" /></a>
+                            <h6><a href="#">{{ p.0 }} </a></h6>
+                            <p>{{ p.2 }}x</p>
+                        </li>
+
+                <a href="{% url 'delete_cart' p.4 %}" style="font-size: x-large;">-</a> |
+                {% if error %}
+                {{ error }}
+                {% else %}
+                    <a href="{% url 'addCart' p.4 %}" style="font-size: x-large;">+</a></p>
+                {% endif %}
+                {% endfor %}
+                 <li class="total">
+                            <span class="float-right"><strong>Total</strong>:{{ p.5 }}</span>
+                            <a href="{% url 'cart' %}" class="btn btn-default hvr-hover btn-cart">VIEW BASKET</a>
+
+                        </li>
+
+
+                    </ul>
+                </li>
+            </div>
+            <!-- End Side Menu -->
+        </nav>
+        <!-- End Navigation -->

@@ -1,0 +1,46 @@
+{% extends "parent/main.html" %}
+{% block body %}
+    {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %} Product details {{ super }} {% endblock %}
+</head>
+<body style="text-align: center;">
+    <div class="all-title-box" style="background-image: url({% static 'img/all-bg-title.jpg' %})" >
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Product details</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                        <li class="breadcrumb-item"><a href="#">Product</a></li>
+                        <li class="breadcrumb-item active">Product details</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <h1> {{ info.0 }}</h1>
+    <br><br>
+    <hr>
+    <h2>دسته بندی:  {{ info.3 }}</h2>
+    <br>
+    <h2>قیمت: {{ info.1 }}</h2>
+    <br>
+    <h2>تعداد: {{ info.2 }}</h2>
+    <hr>
+    <a href="{% url 'add_to_cart' info.4  2 %}"> <button>افزودن به سبد خرید</button></a>
+    <br>
+    <a href="{% url 'cart' %}"> نمایش سبد خرید</a> <br>
+    <a href="{% url 'product' %}">نمایش محصولات</a>
+           
+    
+    
+</body>
+</html>
+{% endblock %}

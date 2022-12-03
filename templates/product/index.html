@@ -1,0 +1,286 @@
+{% extends "parent/main.html" %}
+{% block body %}
+{% load static %}
+        <!-- Start Slider -->
+    <div id="slides-shop" class="cover-slides">
+        <ul class="slides-container">
+            <li class="text-left">
+                <img src="{% static 'img/book3.jpg' %}" alt="">
+                <div class="container">
+                    <div class="row">
+<!--                        <div class="col-md-12">-->
+<!--                            <h1 class="m-b-20"><strong>Welcome To <br> Thewayshop</strong></h1>-->
+<!--                            <p class="m-b-40">See how your users experience your website in realtime or view <br> trends to see any changes in performance over time.</p>-->
+<!--                        </div>-->
+                    </div>
+                </div>
+            </li>
+            <li class="text-center">
+                <img src="{%  static 'img/book.jpg' %}" alt="">
+                <img src="{%  static 'img/book.jpg' %}" alt="">
+                <div class="container">
+                    <div class="row">
+<!--                        <div class="col-md-12">-->
+<!--                            <h1 class="m-b-20"><strong>Welcome To <br> Thewayshop</strong></h1>-->
+<!--                            <p class="m-b-40">See how your users experience your website in realtime or view <br> trends to see any changes in performance over time.</p>-->
+<!--                        </div>-->
+                    </div>
+                </div>
+            </li>
+            <li class="text-right">
+                <img src="{% static 'img/book2.jpg' %}" alt="">
+                <div class="container">
+                    <div class="row">
+<!--                        <div class="col-md-12">-->
+<!--                            <h1 class="m-b-20"><strong>Welcome To <br> Thewayshop</strong></h1>-->
+<!--                            <p class="m-b-40">See how your users experience your website in realtime or view <br> trends to see any changes in performance over time.</p>-->
+<!--                        </div>-->
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="slides-navigation">
+            <a href="#" class="next"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+            <a href="#" class="prev"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+        </div>
+    </div>
+    <!-- End Slider -->
+<!-- Start Shop Page  -->
+    <div class="shop-box-inner">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-3 col-lg-3 col-sm-12 col-xs-12 sidebar-shop-left">
+                    <div class="product-categori">
+                        <div class="search-product">
+                            <form action="#">
+                                <input class="form-control" placeholder="Search here..." type="text">
+                                <button type="submit"> <i class="fa fa-search"></i> </button>
+                            </form>
+                        </div>
+                        <div class="filter-sidebar-left">
+                            <div class="title-left">
+                                <h3>Categories<small class="text-muted">({{ categories|length }})</small></h3>
+                            </div>
+                            {% for n in categories %}
+                            <div class="list-group list-group-collapse list-group-sm list-group-tree" id="" data-children="{{ n.2 }}">
+
+                                <div class="list-group-collapse {{ n.2 }}">
+
+                                    <a class="list-group-item list-group-item-action" href="#{{ n.2 }}" data-toggle="collapse" aria-expanded="true" aria-controls="{{ n.2 }}">{{ n.1 }}</a>
+
+                                    <div class="collapse show" id="{{ n.2 }}" data-parent="#{{ n.2 }}">
+                                        {% for s in subcategories %}
+                                       {% if s.1 == n.1 %} <div class="list-group">
+                                            <a href="#" class="list-group-item list-group-item-action active"> {{ s.0 }} <small class="text-muted"></small></a>
+                                        </div>
+                                       {% endif %}
+                                        {% endfor %}
+                                    </div>
+
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <!--<div class="filter-price-left">
+                            <div class="title-left">
+                                <h3>Price</h3>
+                            </div>
+                            <div class="price-box-slider">
+                                <div id="slider-range"></div>
+                                <p>
+                                    <input type="text" id="amount" readonly style="border:0; color:#fbb714; font-weight:bold;">
+                                    <button class="btn hvr-hover" type="submit">Filter</button>
+                                </p>
+                            </div>
+                        </div>-->
+                        <!--<div class="filter-brand-left">
+                            <div class="title-left">
+                                <h3>Brand</h3>
+                            </div>
+                            <div class="brand-box">
+                                <ul>
+                                    <li>
+                                        <div class="radio radio-danger">
+                                            <input name="survey" id="Radios1" value="Yes" type="radio">
+                                            <label for="Radios1"> Supreme </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="radio radio-danger">
+                                            <input name="survey" id="Radios2" value="No" type="radio">
+                                            <label for="Radios2"> A Bathing Ape </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="radio radio-danger">
+                                            <input name="survey" id="Radios3" value="declater" type="radio">
+                                            <label for="Radios3"> The Hundreds </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="radio radio-danger">
+                                            <input name="survey" id="Radios4" value="declater" type="radio">
+                                            <label for="Radios4"> Alife </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="radio radio-danger">
+                                            <input name="survey" id="Radios5" value="declater" type="radio">
+                                            <label for="Radios5"> Neighborhood </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="radio radio-danger">
+                                            <input name="survey" id="Radios6" value="declater" type="radio">
+                                            <label for="Radios6"> CLOT </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="radio radio-danger">
+                                            <input name="survey" id="Radios7" value="declater" type="radio">
+                                            <label for="Radios7"> Acapulco Gold </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="radio radio-danger">
+                                            <input name="survey" id="Radios8" value="declater" type="radio">
+                                            <label for="Radios8"> UNDFTD </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="radio radio-danger">
+                                            <input name="survey" id="Radios9" value="declater" type="radio">
+                                            <label for="Radios9"> Mighty Healthy </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="radio radio-danger">
+                                            <input name="survey" id="Radios10" value="declater" type="radio">
+                                            <label for="Radios10"> Fiberops </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>-->
+
+                    </div>
+                </div>
+                <div class="col-xl-9 col-lg-9 col-sm-12 col-xs-12 shop-content-right">
+                    <div class="right-product-box">
+                        <div class="product-item-filter row">
+                            <div class="col-12 col-sm-8 text-center text-sm-left">
+                                <div class="toolbar-sorter-right">
+                                    <span>Sort by </span>
+                                    <select id="basic" class="selectpicker show-tick form-control" data-placeholder="$ USD">
+									<option data-display="Select">Nothing</option>
+									<option value="1">Popularity</option>
+									<option value="2">High Price → High Price</option>
+									<option value="3">Low Price → High Price</option>
+									<option value="4">Best Selling</option>
+								</select>
+                                </div>
+                                <p>Showing all 4 results</p>
+                            </div>
+                            <div class="col-12 col-sm-4 text-center text-sm-right">
+                                <ul class="nav nav-tabs ml-auto">
+                                    <li>
+                                        <a class="nav-link active" href="#grid-view" data-toggle="tab"> <i class="fa fa-th"></i> </a>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link" href="#list-view" data-toggle="tab"> <i class="fa fa-list-ul"></i> </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="row product-categorie-box">
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
+                                    <div class="row">
+                                        {% for i in list %}
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                                            <div class="products-single fix">
+                                                <div class="box-img-hover">
+                                                    <div class="type-lb">
+                                                        <p class="new">New</p>
+                                                    </div>
+
+<!--                                                    <img src="{% static 'img\black.jpg' %}" class="img-fluid" alt="Image">-->
+                                                    <img src="{{ i.6.url }}" class="img-fluid" alt="Image">
+
+                                                    <div class="mask-icon">
+                                                        <ul>
+                                                            <li><a href="{% url 'get_product' i.4 %}" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
+                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                        </ul>
+                                                        {% if i.1 > 0 %}
+                                                        <a class="cart" href="{% url 'add_to_cart' i.4 1 %}">Add to Basket</a>
+                                                            {% else %}
+                                                            <a class="cart" href="#">Out Of Stock!</a>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                <div class="why-text">
+                                                    <h4>{{ i.0}}</h4>
+                                                    <h5> {{ i.2 }}T</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="list-view">
+                                    {% for i in list %}
+                                    <div class="list-view-box">
+
+                                        <div class="row">
+
+                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                                                <div class="products-single fix">
+                                                    <div class="box-img-hover">
+                                                        <div class="type-lb">
+                                                            <p class="new">New</p>
+                                                        </div>
+                                                       <img src="{{ i.6.url }}" class="img-fluid" alt="Image">
+
+                                                        <div class="mask-icon">
+                                                            <ul>
+                                                                <li><a href="{% url 'get_product' i.4 %}" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                                <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
+                                                                <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                            </ul>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
+                                                <div class="why-text full-width">
+                                                    <h4>{{ i.0 }}</h4>
+                                                    <h5> {{ i.2 }}T</h5>
+                                                    <p>Integer tincidunt aliquet nibh vitae dictum. In turpis sapien, imperdiet quis magna nec, iaculis ultrices ante. Integer vitae suscipit nisi. Morbi dignissim risus sit amet orci porta, eget aliquam purus
+                                                        sollicitudin. Cras eu metus felis. Sed arcu arcu, sagittis in blandit eu, imperdiet sit amet eros. Donec accumsan nisi purus, quis euismod ex volutpat in. Vestibulum eleifend eros ac lobortis aliquet.
+                                                        Suspendisse at ipsum vel lacus vehicula blandit et sollicitudin quam. Praesent vulputate semper libero pulvinar consequat. Etiam ut placerat lectus.</p>
+                                                    {% if i.1 > 0 %}
+                                                    <a class="btn hvr-hover" href="{% url 'add_to_cart' i.4 1 %}">Add to Basket</a>
+                                                        {% else %}
+                                                        <a class="btn hvr-hover" href="#">Out Of Stock!</a>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                        {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Shop Page -->
+{% endblock %}

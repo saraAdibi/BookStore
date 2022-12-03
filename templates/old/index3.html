@@ -1,0 +1,174 @@
+{% extends "parent/main.html" %}
+{% block body %}
+    {% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% block title %} Products {{ super }} {% endblock %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+</head>
+
+<body style="text-align: center; color: white;">
+    <div class="all-title-box" style="background-image: url({% static 'img/all-bg-title.jpg' %})" >
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Product</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                        <li class="breadcrumb-item active">Product</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+<br>
+<form  method="post" >
+    {% csrf_token %}
+    <p>
+        <label for="name_product">
+            <input id="name_product" placeholder="نام محصول" name="name_product" style="text-align: center;">
+        </label>
+    </p>
+    <p>
+        <label for="price_product">
+            <input id="price_product" placeholder="قیمت محصول" name="price_product" style="text-align: center;">
+        </label>
+    </p>
+    <p>
+        <label for="count_product">
+            <input id="count_product" placeholder="تعداد محصول" name="count_product" style="text-align: center;">
+        </label>
+    </p>
+    <p>
+        <label for="category_product" style="text-align: right;"> دسته بندی :</label>
+            <select name="category_product" id="category_product" onchange="updateSubCategories()" style="color: dodgerblue; box-shadow: white; border-style: dashed; border-spacing: 200px;">
+                {% for c in categories %}
+                    <option value="{{ c.0 }}" style="text-align: right;"> {{ c.1 }}</option>
+                {% endfor %}
+            </select>
+        
+    </p>
+    <p id="sub_cat">
+        <label for="subcategory_product">زیر دسته بندی محصول :</label>
+        <select name="subcategory_product" id="subcategory_product">
+            <option value="None"> هیچ دسته بندی وجود ندارد</option>
+        </select>
+
+    </p>
+    <p>
+        <input type="button" value="درج محصول" onclick="addProduct()">
+    </p>
+</form>
+<hr style="border: 10px solid rgb(28, 0, 128); border-radius: 5px;">
+<ul style="font-size: x-large;">
+    {% for i in list %}
+    <li>
+        <span> نام محصول :</span>
+        {% if i.1 %}
+           <a href="{% url 'get_product' i.4 %}" method="POST"> <span style="color:red">{{ i.0 }}</span></a>
+        {% else %}
+            <span style="color:rgb(0, 255, 213)">{{ i.0 }}</span>
+        {% endif %}|
+        {% if i.1 %}<span> تعداد :</span><span>{{ i.1 }}</span> |{% endif %}
+        <span> قیمت :</span><span>{{ i.2 }}</span> |
+        <span> نام دسته بندی :</span><span>{{ i.3 }}</span> |
+        <span> مدیریت :</span>
+        {% if i.1 %}<span ><a href="{% url 'edit_product' i.4 %}" style="color: black;">ویرایش</a>
+            | <a href="{% url 'delete_product' i.4 %}" style="color: black;">حذف</a></span>
+        {% else %}
+            <span style="font-style: italic; color:rgb(9, 255, 0);font-style: italic;"><a href="{% url 'edit_product' i.4 %}" style="color: black;">ویرایش</a>
+                | مقداری برای محصول وجود ندارد</span>
+        {% endif %}
+
+    </li>
+    {% endfor %}
+</ul>
+<a href="{% url 'logout' %}" title="Logout" style="color: black;">خروج</a> <br>
+<a href="{% url 'cart' %}" style="color: black;"> نمایش سبد خرید</a>
+<script>
+    let sub_cat = document.getElementById("sub_cat");
+    sub_cat.style.display = "None";
+    function addProduct() {
+        {console.log("clicked");}
+        let name_product = document.getElementById("name_product").value;
+        let price_product = document.getElementById("price_product").value;
+        let count_product = document.getElementById("count_product").value;
+        let subcategory_product = document.getElementById("subcategory_product").value;
+        console.log(name_product,price_product,count_product,subcategory_product);
+        const csrftoken = getCookie('csrftoken');
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "{% url 'add_product' %}", true);
+        xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+
+                // Response
+                var response = this.responseText;
+                console.log(response);
+                location.reload();
+
+            }
+        };
+        let d = { "test": 1 , "csrftoken": csrftoken};
+        // {#xhttp.send(JSON.stringify(d));#}
+        xhttp.send(
+            "name_product=" + name_product +
+            "&price_product=" + price_product +
+            "&count_product=" + count_product +
+            "&subcategory_product=" + subcategory_product +
+            "&csrfmiddlewaretoken="+csrftoken
+        );
+    }
+    function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+    function updateSubCategories(){
+        let category_product = document.getElementById("category_product").value;
+        console.log(category_product);
+        const csrftoken = getCookie('csrftoken');
+        $.post("{% url 'get_subcategories' %}",
+              {
+                category_product: category_product,
+                csrfmiddlewaretoken: csrftoken
+              },
+              function(data, status){
+                    sub_cat.style.display = "block";
+
+                    function myFunction(item, index, arr) {
+                      console.log(arr[index].id,arr[index].name);
+                      var node = document.createElement("option"); // Create a <li> node
+                      var textnode = document.createTextNode(arr[index].name); // Create a text node
+                      node.appendChild(textnode);
+                      node.value = arr[index].id;
+                      let subcategory_product = document.getElementById("subcategory_product")
+                      subcategory_product.appendChild(node);
+                    }
+                  data.forEach(myFunction)
+
+                }
+        );
+    }
+
+</script>
+
+</body>
+</html>
+{% endblock %}
